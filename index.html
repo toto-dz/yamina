@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#087F5B">
+<title>مكتبة إقرأ | بلدية الخنق - ولاية الأغواط</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+  :root {
+    --primary: #087F5B;
+    --primary-dark: #066247;
+    --secondary: #F08A5D;
+    --accent: #B9472E;
+    --dark: #173D35;
+    --light: #F3F8F4;
+    --white: #ffffff;
+    --gray: #64748B;
+    --gradient: linear-gradient(135deg, #087F5B 0%, #28A879 55%, #F08A5D 100%);
+    --gradient-2: linear-gradient(135deg, #F08A5D 0%, #087F5B 100%);
+    --shadow-sm: 0 2px 8px rgba(8,127,91,0.09);
+    --shadow-md: 0 8px 24px rgba(8,127,91,0.13);
+    --shadow-lg: 0 20px 50px rgba(8,127,91,0.19);
+    --radius: 20px;
+    --radius-sm: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    -webkit-font-smoothing: antialiased;
+    isolation: isolate;
+  }
+
+  /* ===== خلفية متحركة ===== */
+  .bg-decoration {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  #particles-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  #particles-bg canvas {
+    display: block;
+    pointer-events: none;
+    filter: drop-shadow(0 0 3px rgba(26,84,144,0.12));
+  }
+  @media (max-width: 700px) {
+    #particles-bg { display: none; }
+  }
+  .bg-decoration::before,
+  .bg-decoration::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .bg-decoration::before {
+    background: linear-gradient(118deg, transparent 12%, rgba(8,127,91,0.045) 36%, transparent 56%, rgba(240,138,93,0.045) 78%, transparent 92%);
+    background-size: 220% 220%;
+    animation: background-drift 28s ease-in-out infinite alternate;
+  }
+  .bg-decoration::after {
+    background: repeating-linear-gradient(135deg, rgba(8,127,91,0.018) 0 1px, transparent 1px 32px);
+    background-size: 180% 180%;
+    animation: pattern-drift 42s linear infinite;
+  }
+  @keyframes background-drift {
+    from { background-position: 0% 45%; }
+    to { background-position: 100% 55%; }
+  }
+  @keyframes pattern-drift {
+    from { background-position: 0 0; }
+    to { background-position: 64px 64px; }
+  }
+
+  /* ===== Header ===== */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: var(--shadow-sm);
+    z-index: 1000;
+    padding: 12px 18px;
+    padding-top: calc(12px + env(safe-area-inset-top, 0));
+  }
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    color: var(--primary);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+  }
+  nav ul { display: flex; list-style: none; gap: 22px; }
+  .mobile-menu-toggle,
+  .mobile-menu-backdrop { display: none; }
+  nav a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--primary); }
+  #shop-location { scroll-margin-top: 90px; }
+
+  .hero-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+  }
+  .hero-brand img {
+    display: block;
+    width: min(420px, 100%);
+    height: auto;
+    filter: drop-shadow(0 12px 24px rgba(8,127,91,0.16));
+  }
+  .hero-tagline { color: var(--dark); font-size: 1.35rem; font-weight: 800; }
+  .hero-brand .location { margin-bottom: 0; }
+
+  /* ===== Hero ===== */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 18px 42px;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+      gap: 64px;
+      text-align: center;
+      padding: 42px 28px 64px;
+    }
+    .hero-brand { min-height: 390px; }
+    .social-section { justify-self: center; min-height: 390px; display: flex; flex-direction: column; justify-content: center; }
+  }
+
+  .hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .hero .subtitle {
+    font-size: clamp(0.9rem, 3vw, 1.15rem);
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+  .hero .location {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(8,127,91,0.09);
+    color: var(--primary);
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .featured-services {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px 36px;
+  }
+  .featured-swiper { overflow: hidden; border-radius: 16px; direction: ltr; }
+  .feature-slide {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-areas: "copy gallery";
+    align-items: center;
+    gap: 44px;
+    min-height: 370px;
+    padding: 34px;
+    border: 1px solid rgba(8,127,91,0.13);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.72);
+    box-shadow: var(--shadow-sm);
+  }
+  .feature-copy { grid-area: copy; direction: rtl; text-align: right; }
+  .feature-copy h2 {
+    margin-bottom: 12px;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+  .feature-copy p { margin-bottom: 22px; color: var(--gray); font-size: 1.05rem; }
+  .feature-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .feature-link:hover { background: var(--primary-dark); transform: translateY(-2px); }
+  .feature-gallery {
+    grid-area: gallery;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    direction: ltr;
+  }
+  .feature-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #e5eee9;
+    opacity: 1;
+    transform: none;
+  }
+  .swiper-slide-active .feature-image {
+    animation: feature-image-in 0.55s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+    animation-delay: calc(0.12s + (var(--i) * 0.09s));
+  }
+  .feature-copy h2,
+  .feature-copy p,
+  .feature-copy .feature-link { opacity: 0; transform: translateY(18px); }
+  .swiper-slide-active .feature-copy h2,
+  .swiper-slide-active .feature-copy p,
+  .swiper-slide-active .feature-copy .feature-link {
+    animation: feature-copy-in 0.65s ease forwards;
+  }
+  .swiper-slide-active .feature-copy p { animation-delay: 0.16s; }
+  .swiper-slide-active .feature-copy .feature-link { animation-delay: 0.28s; }
+  @keyframes feature-image-in {
+    from { opacity: 0.58; transform: scale(0.94) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes feature-copy-in { to { opacity: 1; transform: translateY(0); } }
+  .feature-controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; }
+  .feature-arrow {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(8,127,91,0.2);
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--primary);
+    cursor: pointer;
+  }
+  .feature-arrow:focus-visible, .feature-link:focus-visible { outline: 3px solid var(--secondary); outline-offset: 3px; }
+  .feature-pagination { position: static; display: flex; justify-content: center; gap: 3px; width: auto !important; }
+  .feature-pagination .swiper-pagination-bullet { background: var(--primary); opacity: 0.28; }
+  .feature-pagination .swiper-pagination-bullet-active { opacity: 1; }
+  @media (max-width: 700px) {
+    .featured-services { padding: 0 16px 28px; }
+    .feature-slide {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "gallery" "copy";
+      gap: 20px;
+      min-height: 0;
+      padding: 20px 16px;
+    }
+    .feature-gallery { gap: 6px; }
+    .feature-copy h2 { font-size: 1.55rem; }
+    .feature-copy p { font-size: 0.98rem; margin-bottom: 16px; }
+  }
+
+  /* ===== Social Icons - أكبر للمس ===== */
+  .social-section {
+    width: 100%;
+    max-width: 500px;
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid rgba(8,127,91,0.12);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    animation: fadeInUp 0.8s ease 0.5s both;
+  }
+  .social-title {
+    font-size: 1.15rem;
+    color: var(--gray);
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .social-icons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .social-icon {
+    aspect-ratio: 1;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    min-height: 88px;
+  }
+  .social-icon span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    opacity: 0.95;
+  }
+  .social-icon:active {
+    transform: scale(0.94);
+  }
+  .social-icon:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.22);
+  }
+
+  .facebook { background: linear-gradient(135deg, #1877F2, #0C5BC4); }
+  .instagram { background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF); }
+  .whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+  .telegram { background: linear-gradient(135deg, #0088CC, #006699); }
+  .tiktok { background: linear-gradient(135deg, #111111, #25F4EE); }
+  .youtube { background: linear-gradient(135deg, #FF0000, #CC0000); }
+
+  /* ===== Section shared ===== */
+  .section {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 25px 18px 40px;
+  }
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    text-align: center;
+    color: var(--dark);
+  }
+  .section-title span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 22px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .service-category {
+    min-width: 0;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid rgba(8,127,91,0.1);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .service-category:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .service-image { width: 100%; aspect-ratio: 16 / 10; display: block; object-fit: cover; background: #e5eee9; }
+  .service-content { padding: 16px 18px 18px; }
+  .service-category h3 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 9px;
+    color: var(--primary-dark);
+    font-size: 1rem;
+  }
+  .service-category h3 i { color: var(--primary); }
+  .service-category ul {
+    display: grid;
+    gap: 5px;
+    padding-right: 20px;
+    color: var(--gray);
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+  @media (max-width: 520px) {
+    .services-grid { grid-template-columns: 1fr; gap: 14px; }
+    .service-image { aspect-ratio: 16 / 9; }
+  }
+  .map-frame {
+    width: 100%;
+    height: clamp(240px, 42vw, 360px);
+    display: block;
+    border: 0;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* ===== Contact Items ===== */
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  @media (min-width: 900px) {
+    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .contact-item {
+    background: var(--white);
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(8,127,91,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .contact-item:active {
+    transform: scale(0.98);
+  }
+  .contact-item .icon {
+    width: 46px; height: 46px;
+    min-width: 46px;
+    border-radius: 14px;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.15rem;
+    box-shadow: 0 6px 15px rgba(8,127,91,0.25);
+  }
+  .contact-item .info { flex: 1; min-width: 0; }
+  .contact-item .info h4 {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-weight: 600;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+  }
+  .contact-item .info p,
+  .contact-item .info a {
+    font-size: 1rem;
+    color: var(--dark);
+    font-weight: 700;
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .contact-item .arrow {
+    color: var(--gray);
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    background: var(--dark);
+    color: white;
+    padding: 30px 20px 100px;
+    text-align: center;
+  }
+  footer .brand {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+  footer p {
+    color: #94A3B8;
+    font-size: 0.85rem;
+  }
+
+  /* ===== Bottom Nav (للجوال) ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0));
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    border-top: 1px solid rgba(8,127,91,0.1);
+    z-index: 1000;
+  }
+  .bottom-nav a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 4px;
+    border-radius: 14px;
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .bottom-nav a i {
+    font-size: 1.35rem;
+    transition: transform 0.2s;
+  }
+  .bottom-nav a:active {
+    transform: scale(0.92);
+  }
+  .bottom-nav a.active {
+    color: var(--primary);
+    background: rgba(8,127,91,0.09);
+  }
+  .bottom-nav a.active i {
+    transform: translateY(-2px);
+  }
+  .bottom-nav a.whatsapp-nav {
+    color: #25D366;
+  }
+
+  /* ===== Floating WhatsApp ===== */
+  .whatsapp-float {
+    position: fixed;
+    bottom: calc(80px + env(safe-area-inset-bottom, 0));
+    left: 18px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(37,211,102,0.45);
+    z-index: 999;
+    transition: transform 0.2s;
+    animation: pulse 2s infinite;
+  }
+  .whatsapp-float:active {
+    transform: scale(0.9);
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 25px rgba(37, 211, 101, 0.589); }
+    50% { box-shadow: 0 10px 40px rgba(37,211,102,0.85); }
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .mobile-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(8,127,91,0.14);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      color: var(--primary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 1002;
+    }
+    header .nav-container > nav {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: min(320px, calc(100vw - 32px));
+      padding: 12px;
+      border: 1px solid rgba(8,127,91,0.12);
+      border-radius: 0 0 16px 16px;
+      background: rgba(255,255,255,0.98);
+      box-shadow: var(--shadow-md);
+      transform: translateX(calc(100% + 16px));
+      visibility: hidden;
+      transition: transform 0.25s ease, visibility 0.25s ease;
+      z-index: 1001;
+    }
+    header .nav-container > nav.is-open {
+      transform: translateX(0);
+      visibility: visible;
+    }
+    header .nav-container > nav ul {
+      flex-direction: column;
+      gap: 4px;
+    }
+    header .nav-container > nav a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    header .nav-container > nav a:hover {
+      background: rgba(8,127,91,0.08);
+    }
+    .mobile-menu-backdrop.is-visible {
+      display: block;
+      position: fixed;
+      inset: 0;
+      border: 0;
+      background: rgba(23,61,53,0.28);
+      z-index: 999;
+    }
+    header { padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top, 0)); }
+    .logo { font-size: 1.3rem; }
+    .hero-brand { padding: 8px 8px 0; }
+    .hero-brand img { width: min(360px, 88vw); }
+    .hero { padding: 14px 16px 20px; }
+    .section { padding: 20px 16px 30px; }
+    .bottom-nav { display: flex; }
+    .whatsapp-float { 
+      bottom: calc(78px + env(safe-area-inset-bottom, 0));
+      width: 52px;
+      height: 52px;
+      font-size: 1.5rem;
+    }
+    footer { padding-bottom: 110px; }
+  }
+
+  /* ===== Animations on scroll ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- خلفية متحركة -->
+<div class="bg-decoration"></div>
+<div id="particles-bg" aria-hidden="true"></div>
+
+<!-- Header -->
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <span>مكتبة إقرأ</span>
+    </div>
+    <button class="mobile-menu-toggle" type="button" aria-label="فتح قائمة التنقل" aria-expanded="false" aria-controls="main-nav">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#home">الرئيسية</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="#contact">اتصل بنا</a></li>
+        <li><a href="#shop-location">موقع المحل</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<button class="mobile-menu-backdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-brand">
+    <img src="logoiqraa.png" alt="شعار مكتبة إقرأ">
+    <p class="hero-tagline">للطباعة والخدمات المكتبية</p>
+    <p class="location">
+      <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+      بلدية الخنق — ولاية الأغواط
+    </p>
+  </div>
+
+  <!-- أيقونات التواصل الاجتماعي -->
+  <div class="social-section">
+    <p class="social-title">تابعنا وتواصل معنا</p>
+    <div class="social-icons">
+      <a href="https://wa.me/213655752724" target="_blank" rel="noopener" class="social-icon whatsapp" aria-label="واتساب">
+        <i class="fab fa-whatsapp"></i>
+        <span>واتساب</span>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100063477667544" target="_blank" rel="noopener" class="social-icon facebook" aria-label="فيسبوك">
+        <i class="fab fa-facebook-f"></i>
+        <span>فيسبوك</span>
+      </a>
+      <a href="https://www.instagram.com/sohy_b2024?stkn=OHQwNjd4czhsNWNs" target="_blank" rel="noopener" class="social-icon instagram" aria-label="إنستغرام">
+        <i class="fab fa-instagram"></i>
+        <span>إنستغرام</span>
+      </a>
+      <a href="https://t.me/+213655752724" target="_blank" rel="noopener" class="social-icon telegram" aria-label="تيليغرام">
+        <i class="fab fa-telegram-plane"></i>
+        <span>تيليغرام</span>
+      </a>
+      <a href="https://tiktok.com/@bkliqra" target="_blank" rel="noopener" class="social-icon tiktok" aria-label="تيك توك">
+        <i class="fab fa-tiktok"></i>
+        <span>تيك توك</span>
+      </a>
+      <a href="https://youtube.com/" target="_blank" rel="noopener" class="social-icon youtube" aria-label="يوتيوب">
+        <i class="fab fa-youtube"></i>
+        <span>يوتيوب</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="featured-services" aria-label="اكتشف خدمات مكتبة إقرأ">
+  <div class="swiper featured-swiper" dir="ltr">
+    <div class="swiper-wrapper">
+      <article class="swiper-slide feature-slide">
+        <div class="feature-copy">
+          <h2>الطباعة كما تحتاجها</h2>
+          <p>طباعة الوثائق والصور، وتجهيز ملفاتك بعناية لتكون جاهزة للطباعة.</p>
+          <a class="feature-link" href="#services">اكتشف خدماتنا <i class="fas fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="feature-gallery" aria-label="صور خدمات الطباعة">
+          <img class="feature-image" style="--i:1" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959740/ChatGPT_Image_Oct_2_2026_05_46_10_PM_d33vpk.png" alt="طباعة ومطبوعات" loading="lazy">
+          <img class="feature-image" style="--i:2" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960130/ChatGPT_Image_Oct_2_2026_05_55_20_PM_futawd.png" alt="تصميم بطاقات ومطبوعات" loading="lazy">
+          <img class="feature-image" style="--i:3" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960053/ChatGPT_Image_Oct_2_2026_05_54_01_PM_egxjll.png" alt="تصوير وتجهيز الصور" loading="lazy">
+          <img class="feature-image" style="--i:4" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960715/ChatGPT_Image_Oct_2_2026_06_05_05_PM_vcwfy0.png" alt="مستلزمات مكتبية ومدرسية" loading="lazy">
+          <img class="feature-image" style="--i:5" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959886/ChatGPT_Image_Oct_2_2026_05_51_11_PM_qilsys.png" alt="خدمات رقمية وملفات" loading="lazy">
+          <img class="feature-image" style="--i:6" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960394/ChatGPT_Image_Oct_2_2026_05_59_39_PM_cf73l3.png" alt="هدايا محفورة بالليزر" loading="lazy">
+        </div>
+      </article>
+      <article class="swiper-slide feature-slide">
+        <div class="feature-copy">
+          <h2>خدمات رقمية وتصوير</h2>
+          <p>نعالج ملفات PDF وWord والصور، ونجهز الوثائق والصور الشخصية.</p>
+          <a class="feature-link" href="#services">تعرّف على الخدمات <i class="fas fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="feature-gallery" aria-label="صور الخدمات الرقمية والتصوير">
+          <img class="feature-image" style="--i:1" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959886/ChatGPT_Image_Oct_2_2026_05_51_11_PM_qilsys.png" alt="معالجة ملفات رقمية" loading="lazy">
+          <img class="feature-image" style="--i:2" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960053/ChatGPT_Image_Oct_2_2026_05_54_01_PM_egxjll.png" alt="تصوير الصور والوثائق" loading="lazy">
+          <img class="feature-image" style="--i:3" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959740/ChatGPT_Image_Oct_2_2026_05_46_10_PM_d33vpk.png" alt="طباعة الصور والوثائق" loading="lazy">
+          <img class="feature-image" style="--i:4" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960130/ChatGPT_Image_Oct_2_2026_05_55_20_PM_futawd.png" alt="تصميم المطبوعات" loading="lazy">
+          <img class="feature-image" style="--i:5" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960715/ChatGPT_Image_Oct_2_2026_06_05_05_PM_vcwfy0.png" alt="أدوات مدرسية" loading="lazy">
+          <img class="feature-image" style="--i:6" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960394/ChatGPT_Image_Oct_2_2026_05_59_39_PM_cf73l3.png" alt="منتجات مخصصة" loading="lazy">
+        </div>
+      </article>
+      <article class="swiper-slide feature-slide">
+        <div class="feature-copy">
+          <h2>أفكار تتحول إلى هدايا</h2>
+          <p>حفر وقص بالليزر، وهدايا ومنتجات مخصصة للتكريم والمناسبات.</p>
+          <a class="feature-link" href="#services">شاهد كل الخدمات <i class="fas fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="feature-gallery" aria-label="صور التصميم والهدايا">
+          <img class="feature-image" style="--i:1" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960394/ChatGPT_Image_Oct_2_2026_05_59_39_PM_cf73l3.png" alt="هدايا مخصصة بالليزر" loading="lazy">
+          <img class="feature-image" style="--i:2" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960130/ChatGPT_Image_Oct_2_2026_05_55_20_PM_futawd.png" alt="تصميم بطاقات" loading="lazy">
+          <img class="feature-image" style="--i:3" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960715/ChatGPT_Image_Oct_2_2026_06_05_05_PM_vcwfy0.png" alt="منتجات مكتبية ومدرسية" loading="lazy">
+          <img class="feature-image" style="--i:4" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959740/ChatGPT_Image_Oct_2_2026_05_46_10_PM_d33vpk.png" alt="طباعة منتجات ومواد" loading="lazy">
+          <img class="feature-image" style="--i:5" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959886/ChatGPT_Image_Oct_2_2026_05_51_11_PM_qilsys.png" alt="خدمات رقمية" loading="lazy">
+          <img class="feature-image" style="--i:6" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960053/ChatGPT_Image_Oct_2_2026_05_54_01_PM_egxjll.png" alt="التصوير" loading="lazy">
+        </div>
+      </article>
+    </div>
+    <div class="feature-controls">
+      <button class="feature-arrow feature-next" type="button" aria-label="الشريحة التالية"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+      <div class="swiper-pagination feature-pagination" aria-label="اختر الشريحة"></div>
+      <button class="feature-arrow feature-prev" type="button" aria-label="الشريحة السابقة"><i class="fas fa-arrow-left" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- خدمات المكتبة -->
+<section class="section reveal" id="services">
+  <h2 class="section-title">خدمات <span>مكتبة إقرأ</span></h2>
+  <p class="section-subtitle">خدمات الطباعة والتصميم والاحتياجات الرقمية في مكان واحد</p>
+  <div class="services-grid">
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959740/ChatGPT_Image_Oct_2_2026_05_46_10_PM_d33vpk.png" alt="الطباعة والمطبوعات" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-print" aria-hidden="true"></i> الطباعة والمطبوعات</h3>
+        <ul><li>طباعة الوثائق والصور</li><li>مطبوعات متنوعة وتجهيز الملفات للطباعة</li></ul>
+      </div>
+    </article>
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790959886/ChatGPT_Image_Oct_2_2026_05_51_11_PM_qilsys.png" alt="الخدمات الرقمية وملفات PDF وWord" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-laptop" aria-hidden="true"></i> الخدمات الرقمية</h3>
+        <ul><li>خدمات PDF وWord والصور</li><li>التسجيلات الرقمية ونسخ الملفات وتحويلها</li></ul>
+      </div>
+    </article>
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960053/ChatGPT_Image_Oct_2_2026_05_54_01_PM_egxjll.png" alt="التصوير ومعالجة الصور" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-camera" aria-hidden="true"></i> التصوير</h3>
+        <ul><li>تصوير الوثائق والصور الشخصية</li><li>معالجة الصور وتجهيزها</li></ul>
+      </div>
+    </article>
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960130/ChatGPT_Image_Oct_2_2026_05_55_20_PM_futawd.png" alt="تصميم المطبوعات والبطاقات" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-palette" aria-hidden="true"></i> التصميم</h3>
+        <ul><li>تصميم المطبوعات والبطاقات</li><li>الشهادات والدعوات وتجهيزها للطباعة</li></ul>
+      </div>
+    </article>
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960394/ChatGPT_Image_Oct_2_2026_05_59_39_PM_cf73l3.png" alt="الحفر بالليزر والهدايا المخصصة" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-fire" aria-hidden="true"></i> الليزر والهدايا</h3>
+        <ul><li>الحفر والقص بالليزر</li><li>هدايا ومنتجات مخصصة والتكريم والجوائز</li></ul>
+      </div>
+    </article>
+    <article class="service-category">
+      <img class="service-image" src="https://res.cloudinary.com/dq38km9rc/image/upload/v1790960715/ChatGPT_Image_Oct_2_2026_06_05_05_PM_vcwfy0.png" alt="أدوات مدرسية ومكتبية وكراريس" loading="lazy">
+      <div class="service-content">
+        <h3><i class="fas fa-book" aria-hidden="true"></i> المكتبي والمدرسي</h3>
+        <ul><li>كراريس وأدوات مدرسية ومكتبية</li><li>محافظ ومستلزمات متنوعة</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- معلومات الاتصال -->
+<section class="section reveal" id="contact">
+  <h2 class="section-title">معلومات <span>الاتصال</span></h2>
+  <p class="section-subtitle">تواصل معنا بأي طريقة تناسبك</p>
+
+  <div class="contact-list">
+    <a href="tel:0655752724" class="contact-item">
+      <div class="icon"><i class="fas fa-phone-alt"></i></div>
+      <div class="info">
+        <h4>اتصل بنا</h4>
+        <p dir="ltr" style="text-align:right;">0655 75 27 24</p>
+      </div>
+      <i class="fas fa-chevron-left arrow"></i>
+    </a>
+
+    <a href="https://wa.me/213655752724" target="_blank" rel="noopener" class="contact-item">
+      <div class="icon" style="background: linear-gradient(135deg, #25D366, #128C7E);"><i class="fab fa-whatsapp"></i></div>
+      <div class="info">
+        <h4>واتساب</h4>
+        <p>راسلنا مباشرة</p>
+      </div>
+      <i class="fas fa-chevron-left arrow"></i>
+    </a>
+
+    <a href="mailto:toufikbellahcen@gmail.com" class="contact-item">
+      <div class="icon"><i class="fas fa-envelope"></i></div>
+      <div class="info">
+        <h4>البريد الإلكتروني</h4>
+        <p dir="ltr">bkliqra@gmail.com</p>
+      </div>
+      <i class="fas fa-chevron-left arrow"></i>
+    </a>
+
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+      <div class="info">
+        <h4>العنوان</h4>
+        <p>بلدية الخنق، ولاية الأغواط</p>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="icon"><i class="fas fa-clock"></i></div>
+      <div class="info">
+        <h4>أوقات العمل</h4>
+        <p>السبت — الخميس</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-subtitle" id="shop-location" style="margin:24px 0 14px; font-weight:700;">موقع المحل على الخريطة</p>
+  <iframe
+    class="map-frame"
+    title="موقع مكتبة إقرأ على خرائط Google"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d692.2724475751893!2d2.7898675403983635!3d33.74195744122356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12631f549e1de9ab%3A0x7be3c24ce27f0796!2z2YXZg9iq2KjYqSDZiCDZiNix2KfZgtipINil2YLYsdij!5e1!3m2!1sar!2sdz!4v1790938240745!5m2!1sar!2sdz"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+  <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=33.74195744122356%2C2.7898675403983635" target="_blank" rel="noopener">
+    <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+    فتح الموقع في خرائط Google
+  </a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="brand">مكتبة إقرأ</div>
+  <p>بلدية الخنق — ولاية الأغواط</p>
+  <p style="margin-top:6px; opacity:0.7;">© 2025 جميع الحقوق محفوظة</p>
+</footer>
+
+<!-- Bottom Nav (يظهر فقط على الجوال) -->
+<nav class="bottom-nav">
+  <a href="#home" class="active">
+    <i class="fas fa-home"></i>
+    <span>الرئيسية</span>
+  </a>
+  <a href="#services">
+    <i class="fas fa-list" aria-hidden="true"></i>
+    <span>الخدمات</span>
+  </a>
+  <a href="#contact">
+    <i class="fas fa-address-book"></i>
+    <span>اتصل بنا</span>
+  </a>
+</nav>
+
+<!-- زر واتساب عائم -->
+<a href="https://wa.me/213655752724?text=مرحباً،%20أريد%20الاستفسار" 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener"
+   aria-label="تواصل عبر واتساب">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const smallScreen = window.matchMedia('(max-width: 700px)').matches;
+
+  if (window.Swiper) {
+    new Swiper('.featured-swiper', {
+      loop: false,
+      rewind: true,
+      speed: reduceMotion ? 0 : 850,
+      autoplay: reduceMotion ? false : { delay: 6500, disableOnInteraction: false, pauseOnMouseEnter: true },
+      keyboard: { enabled: true, onlyInViewport: true },
+      navigation: { nextEl: '.feature-next', prevEl: '.feature-prev' },
+      pagination: { el: '.feature-pagination', clickable: true },
+      a11y: { enabled: true },
+      on: {
+        init() {
+          this.el.querySelectorAll('.swiper-slide-active .feature-image').forEach(image => {
+            image.loading = 'eager';
+          });
+        },
+        slideChangeTransitionStart() {
+          this.slides[this.activeIndex]?.querySelectorAll('.feature-image').forEach(image => {
+            image.loading = 'eager';
+          });
+        }
+      }
+    });
+  }
+
+  if (window.particlesJS && !reduceMotion && !smallScreen) {
+    particlesJS('particles-bg', {
+      particles: {
+        number: { value: 100, density: { enable: false } },
+        color: { value: ['#1a5490', '#0d3a6b', '#d4a017', '#f0c14b'] },
+        opacity: { value: 0.38, random: true },
+        size: { value: 2.6, random: true },
+        line_linked: { enable: true, distance: 165, color: '#1a5490', opacity: 0.19, width: 1 },
+        move: { enable: true, speed: 0.28, direction: 'none', random: true, straight: false, out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+      },
+      retina_detect: true
+    });
+  }
+
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+  const mobileMenuBackdrop = document.querySelector('.mobile-menu-backdrop');
+
+  function closeMobileMenu() {
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenuToggle.setAttribute('aria-label', 'فتح قائمة التنقل');
+    mobileMenuToggle.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+    mainNav.classList.remove('is-open');
+    mobileMenuBackdrop.classList.remove('is-visible');
+  }
+
+  mobileMenuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMobileMenu();
+      return;
+    }
+
+    mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    mobileMenuToggle.setAttribute('aria-label', 'إغلاق قائمة التنقل');
+    mobileMenuToggle.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
+    mainNav.classList.add('is-open');
+    mobileMenuBackdrop.classList.add('is-visible');
+  });
+  mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+  mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && mobileMenuToggle.getAttribute('aria-expanded') === 'true') {
+      closeMobileMenu();
+      mobileMenuToggle.focus();
+    }
+  });
+
+  // ====== Smooth scroll ======
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ====== Active state في Bottom Nav ======
+  const bottomNavLinks = document.querySelectorAll('.bottom-nav a[href^="#"]');
+  const sections = ['home', 'services', 'contact'].map(id => document.getElementById(id));
+
+  function updateActiveNav() {
+    let current = 'home';
+    sections.forEach(sec => {
+      if (sec) {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 150 && rect.bottom >= 150) {
+          current = sec.id;
+        }
+      }
+    });
+    bottomNavLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // ====== Reveal on scroll ======
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
